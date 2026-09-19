@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>护眼模式</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main class="wrap">
+    <div class="orb" id="orb" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="4.4"/>
+        <path d="M12 2.5v2.2"/>
+        <path d="M12 19.3v2.2"/>
+        <path d="M2.5 12h2.2"/>
+        <path d="M19.3 12h2.2"/>
+        <path d="m4.93 4.93 1.55 1.55"/>
+        <path d="m17.52 17.52 1.55 1.55"/>
+        <path d="m19.07 4.93-1.55 1.55"/>
+        <path d="m6.48 17.52-1.55 1.55"/>
+      </svg>
+    </div>
+
+    <h1 class="title">护眼模式</h1>
+    <p class="status" id="status">
+      <span class="dot" id="dot"></span><span id="statusText">已开启</span>
+    </p>
+
+    <button type="button" class="btn btn-primary" id="toggleBtn">关闭护眼模式</button>
+
+    <p class="auto-note" id="autoNote" hidden>
+      当前由自动模式控制，点击上方按钮可切换为手动
+    </p>
+
+    <div class="meta">
+      <span class="meta-icon" id="presetIcon" aria-hidden="true"></span>
+      <span class="meta-text" id="presetLine">暖阳 · 暖色 42%</span>
+    </div>
+
+    <footer class="foot">
+      <span class="site-note" id="siteNote" hidden>此网站已排除</span>
+      <button type="button" class="settings-link" id="settingsBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M20 7h-9"/>
+          <path d="M14 17H5"/>
+          <circle cx="17" cy="17" r="3"/>
+          <circle cx="7" cy="7" r="3"/>
+        </svg>
+        <span>设置</span>
+      </button>
+    </footer>
+  </main>
+
+  <script src="../lib/shared.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

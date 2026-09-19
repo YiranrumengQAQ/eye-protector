@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>护眼模式 · 设置</title>
+  <link rel="icon" href="../icons/icon-48.png">
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="app">
+
+    <!-- ============ 侧边栏 ============ -->
+    <aside class="sidebar">
+      <div class="brand">
+        <img class="brand-logo" src="../icons/icon-48.png" alt="">
+        <div class="brand-text">
+          <strong>护眼模式</strong>
+          <span>Eye Protector</span>
+        </div>
+      </div>
+
+      <nav class="nav" id="nav">
+        <button type="button" class="nav-item active" data-target="general">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" x2="14" y1="2" y2="6"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="16" x2="16" y1="18" y2="22"/></svg>
+          <span>常规</span>
+        </button>
+        <button type="button" class="nav-item" data-target="appearance">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+          <span>外观</span>
+        </button>
+        <button type="button" class="nav-item" data-target="presets">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2.5 8.5 4.5L12 11.5 3.5 7Z"/><path d="m3.5 12 8.5 4.5 8.5-4.5"/><path d="m3.5 17 8.5 4.5 8.5-4.5"/></svg>
+          <span>方案</span>
+        </button>
+        <button type="button" class="nav-item" data-target="images">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2.5"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/></svg>
+          <span>图片</span>
+        </button>
+        <button type="button" class="nav-item" data-target="sites">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19"/><path d="M12 2.5a15.3 15.3 0 0 1 3.8 9.5 15.3 15.3 0 0 1-3.8 9.5 15.3 15.3 0 0 1-3.8-9.5A15.3 15.3 0 0 1 12 2.5Z"/></svg>
+          <span>网站</span>
+        </button>
+        <button type="button" class="nav-item" data-target="advanced">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg>
+          <span>高级</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-foot">
+        <span class="version" id="version">v1.0.0</span>
+      </div>
+    </aside>
+
+    <!-- ============ 主内容 ============ -->
+    <main class="content" id="content">
+      <div class="save-indicator" id="saveIndicator" aria-live="polite">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        <span>已保存</span>
+      </div>
+
+      <!-- ============ 常规 ============ -->
+      <section class="panel active" id="panel-general" data-panel="general">
+        <header class="panel-head">
+          <h1>常规</h1>
+          <p>控制护眼模式的整体启用方式</p>
+        </header>
+
+        <div class="card">
+          <div class="row">
+            <div class="row-text">
+              <h3>护眼模式</h3>
+              <p>在所有网页上应用暖色滤镜。开关状态会保存在本地。</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="enabled">
+              <span class="track"><span class="thumb"></span></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head stacked">
+            <h3>自动模式</h3>
+            <p>选择护眼模式的启用时机；手动干预时会退回手动控制。</p>
+          </div>
+
+          <div class="radio-list" id="autoModeList">
+            <label class="radio-row">
+              <input type="radio" name="autoMode" value="manual">
+              <span class="radio-dot"></span>
+              <span class="radio-text">
+                <strong>手动控制</strong>
+                <span>通过工具栏按钮自行开关</span>
+              </span>
+            </label>
+            <label class="radio-row has-detail">
+              <input type="radio" name="autoMode" value="schedule">
+              <span class="radio-dot"></span>
+              <span class="radio-text">
+                <strong>定时开启</strong>
+                <span>每天在设定时间段内自动生效</span>
+              </span>
+              <span class="radio-detail" id="scheduleFields">
+                <input type="time" id="scheduleStart" value="20:00" aria-label="开始时间">
+                <i>至</i>
+                <input type="time" id="scheduleEnd" value="07:00" aria-label="结束时间">
+              </span>
+            </label>
+            <label class="radio-row">
+              <input type="radio" name="autoMode" value="system">
+              <span class="radio-dot"></span>
+              <span class="radio-text">
+                <strong>跟随系统主题</strong>
+                <span>系统处于深色主题时自动开启</span>
+              </span>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 外观 ============ -->
+      <section class="panel" id="panel-appearance" data-panel="appearance">
+        <header class="panel-head">
+          <h1>外观</h1>
+          <p>调节网页的色温与观感，下方预览实时反映效果</p>
+        </header>
+
+        <div class="card preview-card">
+          <div class="card-head">
+            <h3>效果预览</h3>
+            <span class="live-badge"><i></i>实时</span>
+          </div>
+          <div class="preview-window">
+            <div class="pw-bar">
+              <span class="pw-dot r"></span><span class="pw-dot y"></span><span class="pw-dot g"></span>
+              <span class="pw-url">example.com/article</span>
+            </div>
+            <div class="pw-surface" id="previewSurface">
+              <h4>长夜将尽，屏幕本该更柔和</h4>
+              <p class="pw-text">
+                护眼模式会降低蓝光与页面亮度，让长时间阅读更舒适。
+                这是一段<a href="javascript:void 0" tabindex="-1">示例链接</a>，用来观察文字与强调色的变化。
+              </p>
+              <div class="pw-row">
+                <div class="pw-img" id="previewImg">
+                  <svg viewBox="0 0 160 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                    <defs>
+                      <linearGradient id="pwSky" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#7db9e8"/><stop offset="1" stop-color="#cfe8f7"/>
+                      </linearGradient>
+                    </defs>
+                    <rect width="160" height="100" fill="url(#pwSky)"/>
+                    <circle cx="118" cy="26" r="12" fill="#ffd75e"/>
+                    <path d="M0 78 34 44l22 24 18-14 40 46H0Z" fill="#3f7d5a"/>
+                    <path d="M0 100V88l30-12 24 16 28-10 38 18H0Z" fill="#2f6247"/>
+                    <rect y="88" width="160" height="12" fill="#4c8f6d"/>
+                  </svg>
+                </div>
+                <div class="pw-side">
+                  <span class="pw-chip">示例标签</span>
+                  <button type="button" class="pw-btn" tabindex="-1">主要按钮</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card sliders-card">
+          <div class="card-head">
+            <h3>画面调节</h3>
+            <button type="button" class="link-btn" id="resetAppearance">恢复默认</button>
+          </div>
+
+          <div class="slider-row" data-key="warmth">
+            <div class="sr-head">
+              <label for="inp-warmth">暖色程度</label>
+              <span class="sr-val"><b id="val-warmth">42</b>%</span>
+            </div>
+            <input type="range" id="inp-warmth" min="0" max="100" step="1" value="42">
+            <div class="sr-caption"><span>冷</span><span>暖</span></div>
+          </div>
+
+          <div class="slider-row" data-key="brightness">
+            <div class="sr-head">
+              <label for="inp-brightness">页面亮度</label>
+              <span class="sr-val"><b id="val-brightness">97</b>%</span>
+            </div>
+            <input type="range" id="inp-brightness" min="75" max="100" step="1" value="97">
+            <div class="sr-caption"><span>暗</span><span>亮</span></div>
+          </div>
+
+          <div class="slider-row" data-key="contrast">
+            <div class="sr-head">
+              <label for="inp-contrast">对比度</label>
+              <span class="sr-val"><b id="val-contrast">98</b>%</span>
+            </div>
+            <input type="range" id="inp-contrast" min="85" max="105" step="1" value="98">
+            <div class="sr-caption"><span>低</span><span>高</span></div>
+          </div>
+
+          <div class="slider-row" data-key="saturation">
+            <div class="sr-head">
+              <label for="inp-saturation">饱和度</label>
+              <span class="sr-val"><b id="val-saturation">92</b>%</span>
+            </div>
+            <input type="range" id="inp-saturation" min="40" max="100" step="1" value="92">
+            <div class="sr-caption"><span>低</span><span>高</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 方案 ============ -->
+      <section class="panel" id="panel-presets" data-panel="presets">
+        <header class="panel-head">
+          <h1>护眼方案</h1>
+          <p>针对不同场景调好的参数组合，选择的方案会同步到外观上</p>
+        </header>
+
+        <p class="preset-status" id="presetStatus"></p>
+
+        <div class="preset-grid" id="presetGrid">
+          <button type="button" class="preset-card" data-preset="warm">
+            <span class="pc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v2.5"/><path d="m5.8 5.8 1.6 1.6"/><path d="m18.2 5.8-1.6 1.6"/><path d="M2.5 16h2.5"/><path d="M19 16h2.5"/><path d="M8 16a4 4 0 0 1 8 0"/><path d="M3 20h18"/></svg></span>
+            <span class="pc-name">暖阳</span>
+            <span class="pc-desc">日常浏览，轻微暖色</span>
+            <span class="pc-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+          </button>
+          <button type="button" class="preset-card" data-preset="night">
+            <span class="pc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6.4 6.4 0 0 0 8.6 8.6A9 9 0 1 1 12 3Z"/></svg></span>
+            <span class="pc-name">夜间</span>
+            <span class="pc-desc">深夜使用，削弱蓝光与亮度</span>
+            <span class="pc-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+          </button>
+          <button type="button" class="preset-card" data-preset="reading">
+            <span class="pc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 4h6a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3h-7Z"/><path d="M21.5 4h-6a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h7Z"/></svg></span>
+            <span class="pc-name">阅读</span>
+            <span class="pc-desc">阅读文章与文档，降低色彩刺激</span>
+            <span class="pc-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+          </button>
+          <button type="button" class="preset-card" data-preset="focus">
+            <span class="pc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="13.5" rx="2"/><path d="M8.5 21h7"/><path d="M12 17v4"/></svg></span>
+            <span class="pc-name">专注</span>
+            <span class="pc-desc">长时间工作，低饱和柔和画面</span>
+            <span class="pc-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+          </button>
+        </div>
+      </section>
+
+      <!-- ============ 图片 ============ -->
+      <section class="panel" id="panel-images" data-panel="images">
+        <header class="panel-head">
+          <h1>图片</h1>
+          <p>决定网页中的图片、视频等媒体是否跟随护眼滤镜</p>
+        </header>
+
+        <div class="mode-list" id="imageModeList">
+          <div class="mode-card" data-mode="follow">
+            <span class="mc-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="13" height="13" rx="2.5"/><path d="M16 8V5.5A2.5 2.5 0 0 0 13.5 3H5.5A2.5 2.5 0 0 0 3 5.5v8A2.5 2.5 0 0 0 5.5 16H8"/></svg>
+            </span>
+            <span class="mc-text">
+              <strong>跟随网页一起调整</strong>
+              <span>图片与页面应用相同的护眼滤镜，整体观感一致</span>
+            </span>
+            <span class="mc-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+          </div>
+
+          <div class="mode-card" data-mode="protect">
+            <span class="mc-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-3.5 8-9V5.5L12 2.5 4 5.5V13c0 5.5 8 9 8 9Z"/><path d="m9 11.5 2 2 4-4.5"/></svg>
+            </span>
+            <span class="mc-text">
+              <strong>保持图片原色</strong>
+              <span>对图片应用补偿滤镜，还原真实颜色，适合摄影与购物网站</span>
+            </span>
+            <span class="mc-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+          </div>
+
+          <div class="mode-card" data-mode="dim">
+            <span class="mc-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 3v2"/><path d="M12 19v2"/><path d="M3 12h2"/><path d="M19 12h2"/><path d="m5.6 5.6 1.4 1.4"/><path d="m17 17 1.4 1.4"/><path d="m18.4 5.6-1.4 1.4"/><path d="m7 17-1.4 1.4"/></svg>
+            </span>
+            <span class="mc-text">
+              <strong>降低图片亮度</strong>
+              <span>在护眼滤镜之上进一步压暗图片，适合夜间浏览</span>
+            </span>
+            <span class="mc-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+            <div class="mc-slider">
+              <input type="range" id="inp-imageBrightness" min="60" max="100" step="1">
+              <span class="sr-val"><b id="val-imageBrightness">85</b>%</span>
+            </div>
+          </div>
+
+          <div class="mode-card" data-mode="desaturate">
+            <span class="mc-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.7 6.7 8a7.5 7.5 0 1 0 10.6 0Z"/><path d="M8.5 14a4 4 0 0 0 3.5 4"/></svg>
+            </span>
+            <span class="mc-text">
+              <strong>降低图片饱和度</strong>
+              <span>减弱图片色彩刺激，适合睡前阅读图文内容</span>
+            </span>
+            <span class="mc-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+            <div class="mc-slider">
+              <input type="range" id="inp-imageSaturation" min="0" max="100" step="1">
+              <span class="sr-val"><b id="val-imageSaturation">60</b>%</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 网站 ============ -->
+      <section class="panel" id="panel-sites" data-panel="sites">
+        <header class="panel-head">
+          <h1>网站</h1>
+          <p>排除列表中的网站不会应用护眼模式，子域名自动匹配</p>
+        </header>
+
+        <div class="card">
+          <div class="card-head stacked">
+            <h3>排除列表</h3>
+            <p>例如 <code>example.com</code> 会同时匹配 <code>www.example.com</code> 等子域名</p>
+          </div>
+
+          <div class="site-add">
+            <div class="site-input-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19"/><path d="M12 2.5a15.3 15.3 0 0 1 3.8 9.5 15.3 15.3 0 0 1-3.8 9.5 15.3 15.3 0 0 1-3.8-9.5A15.3 15.3 0 0 1 12 2.5Z"/></svg>
+              <input type="text" id="siteInput" placeholder="example.com" spellcheck="false" autocomplete="off">
+            </div>
+            <button type="button" class="btn-mini primary" id="addSiteBtn">添加</button>
+            <button type="button" class="btn-mini" id="addCurrentBtn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+              添加当前网站
+            </button>
+          </div>
+          <p class="site-error" id="siteError" hidden></p>
+
+          <ul class="site-list" id="siteList"></ul>
+          <p class="site-empty" id="siteEmpty">暂无排除的网站</p>
+        </div>
+      </section>
+
+      <!-- ============ 高级 ============ -->
+      <section class="panel" id="panel-advanced" data-panel="advanced">
+        <header class="panel-head">
+          <h1>高级</h1>
+          <p>面向进阶用户的自定义能力</p>
+        </header>
+
+        <div class="card">
+          <div class="row">
+            <div class="row-text">
+              <h3>自定义 CSS</h3>
+              <p>在所有网页上附加注入自定义样式，谨慎使用。</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="customCSSEnabled">
+              <span class="track"><span class="thumb"></span></span>
+            </label>
+          </div>
+          <textarea id="customCSS" class="css-input" rows="6" spellcheck="false"
+            placeholder="body { background: #f5efe2; }&#10;a { color: #8a5a00; }"></textarea>
+        </div>
+
+        <div class="card">
+          <div class="card-head stacked">
+            <h3>其他</h3>
+          </div>
+          <div class="row">
+            <div class="row-text">
+              <h3>快捷键</h3>
+              <p>按 <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>E</kbd> 打开护眼模式弹窗，可在浏览器扩展管理页修改。</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="row-text">
+              <h3>数据存储</h3>
+              <p>所有设置仅保存在浏览器本地，不会上传或同步到任何服务器。</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="row-text">
+              <h3>重置所有设置</h3>
+              <p>恢复为初始状态，包括排除的网站与自定义 CSS。</p>
+            </div>
+            <button type="button" class="btn-mini danger" id="resetAllBtn">重置</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="../lib/shared.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>

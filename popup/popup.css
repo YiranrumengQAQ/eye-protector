@@ -1,0 +1,211 @@
+/* Eye Protector — Popup 样式
+ * 设计基调：现代扁平 / 圆角 / 大留白 / 低饱和 / 暖色强调
+ */
+
+:root {
+  --bg: #f7f5f1;
+  --card: #ffffff;
+  --border: #e8e3da;
+  --text: #2a2620;
+  --muted: #8b8377;
+  --accent: #e8920f;
+  --accent-strong: #d97f06;
+  --accent-soft: rgba(232, 146, 15, 0.12);
+  --radius: 14px;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #171412;
+    --card: #211d1a;
+    --border: #332d28;
+    --text: #ece7e0;
+    --muted: #9a9186;
+    --accent: #f5a524;
+    --accent-strong: #f5a524;
+    --accent-soft: rgba(245, 165, 36, 0.14);
+    color-scheme: dark;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 300px;
+  font-family: system-ui, -apple-system, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-size: 14px;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 26px 18px 10px;
+}
+
+/* ---------- 状态图标 ---------- */
+
+.orb {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #b6ac9f;
+  background: var(--card);
+  border: 1px solid var(--border);
+  transition: color .25s ease, background .25s ease, border-color .25s ease,
+    box-shadow .25s ease;
+}
+
+.orb svg { width: 30px; height: 30px; }
+
+.orb.on {
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-color: transparent;
+  box-shadow: 0 0 0 6px var(--accent-soft);
+}
+
+/* ---------- 标题与状态 ---------- */
+
+.title {
+  margin: 14px 0 4px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: .01em;
+}
+
+.status {
+  margin: 0 0 18px;
+  font-size: 12.5px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #c3baad;
+  transition: background .2s ease, box-shadow .2s ease;
+}
+
+.dot.on {
+  background: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+/* ---------- 主按钮 ---------- */
+
+.btn {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  font-size: 13.5px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease, color .15s ease;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn-primary:hover { background: var(--accent-strong); }
+
+.btn-secondary {
+  background: var(--card);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+.btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---------- 自动模式提示 ---------- */
+
+.auto-note {
+  margin: 10px 0 0;
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* ---------- 当前方案 ---------- */
+
+.meta {
+  margin: 14px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.meta-icon { display: inline-flex; width: 14px; height: 14px; color: var(--accent); }
+.meta-icon svg { width: 100%; height: 100%; }
+
+/* ---------- 底部 ---------- */
+
+.foot {
+  width: 100%;
+  margin-top: 16px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 34px;
+}
+
+.site-note {
+  margin-right: auto;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+.settings-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 12.5px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background .15s ease, color .15s ease;
+}
+
+.settings-link:hover { background: var(--accent-soft); color: var(--accent); }
+
+.settings-link svg { width: 14px; height: 14px; }
+
+.settings-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}

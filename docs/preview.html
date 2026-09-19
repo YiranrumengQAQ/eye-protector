@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eye Protector · 界面预览</title>
+  <style>
+    :root {
+      --bg: #f6f4ef;
+      --card: #ffffff;
+      --border: #e8e3da;
+      --text: #2a2620;
+      --muted: #8b8377;
+      --accent: #e8920f;
+      --accent-soft: rgba(232, 146, 15, 0.12);
+      color-scheme: light;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #161312;
+        --card: #1f1c19;
+        --border: #2e2a26;
+        --text: #ece7e0;
+        --muted: #9a9186;
+        --accent: #f5a524;
+        --accent-soft: rgba(245, 165, 36, 0.14);
+        color-scheme: dark;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", "PingFang SC",
+        "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+    header.site {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 24px 8px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand img { width: 40px; height: 40px; border-radius: 10px; }
+    .brand h1 { margin: 0; font-size: 20px; }
+    .brand p { margin: 2px 0 0; font-size: 13px; color: var(--muted); }
+    .hint {
+      max-width: 1100px;
+      margin: 16px auto 0;
+      padding: 0 24px;
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .hint code {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 1px 6px;
+      font-size: 11.5px;
+    }
+    .stage {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 28px;
+      align-items: flex-start;
+    }
+    .device { min-width: 0; }
+    .device h2 {
+      margin: 0 0 4px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .device > p { margin: 0 0 12px; font-size: 12px; color: var(--muted); }
+    .frame {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 6px 24px rgba(60, 48, 30, 0.07);
+    }
+    .frame.flash { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .frame iframe { display: block; border: 0; background: transparent; }
+    .popup-frame iframe { width: 316px; height: 400px; }
+    .options-frame iframe { width: 1080px; height: 780px; max-width: calc(100vw - 48px); }
+    footer.site {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 8px 24px 40px;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+  </style>
+</head>
+<body>
+  <header class="site">
+    <div class="brand">
+      <img src="../icons/icon-48.png" alt="">
+      <div>
+        <h1>Eye Protector · 护眼模式 — 界面预览</h1>
+        <p>无需安装扩展，直接预览工具栏弹窗与设置页</p>
+      </div>
+    </div>
+  </header>
+
+  <p class="hint">
+    本页面加载了真实的 <code>popup/popup.html</code> 与 <code>options/options.html</code>，
+    并用 <code>docs/mock-browser.js</code> 模拟 WebExtension API。
+    两侧的开关、滑块、方案与网站规则均可交互，状态会在两个预览之间实时同步。
+    从仓库根目录启动任意静态服务器即可访问，例如：
+    <code>python3 -m http.server 8000</code> 后打开 <code>http://localhost:8000/docs/preview.html</code>
+  </p>
+
+  <main class="stage">
+    <section class="device" id="popupDevice">
+      <h2>工具栏弹窗</h2>
+      <p>popup/popup.html · 300px 宽</p>
+      <div class="frame popup-frame" id="popupFrame">
+        <iframe id="popupIframe" title="工具栏弹窗预览"></iframe>
+      </div>
+    </section>
+
+    <section class="device">
+      <h2>设置页</h2>
+      <p>options/options.html · 侧边导航 + 卡片布局</p>
+      <div class="frame options-frame" id="optionsFrame">
+        <iframe id="optionsIframe" title="设置页预览"></iframe>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site">
+    预览仅用于界面验收：通知、徽章与定时任务等依赖真实扩展环境的能力不会在此运行。
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      function mountIframe(iframe, pageUrl, baseHref) {
+        fetch(pageUrl)
+          .then(function (res) { return res.text(); })
+          .then(function (html) {
+            var shim = '<base href="' + baseHref + '">' +
+              '<script src="/docs/mock-browser.js"><\/script>';
+            var injected = html.replace(/<head[^>]*>/i, function (m) {
+              return m + shim;
+            });
+            var doc = iframe.contentDocument;
+            doc.open();
+            doc.write(injected);
+            doc.close();
+          });
+      }
+
+      var popupIframe = document.getElementById('popupIframe');
+      var optionsIframe = document.getElementById('optionsIframe');
+      mountIframe(popupIframe, '../popup/popup.html', '../popup/');
+      mountIframe(optionsIframe, '../options/options.html', '../options/');
+
+      // popup 中点击“设置”时高亮设置页预览
+      window.addEventListener('message', function (ev) {
+        if (!ev.data || ev.data.type !== 'ep-open-options') return;
+        var frame = document.getElementById('optionsFrame');
+        frame.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        frame.classList.add('flash');
+        setTimeout(function () { frame.classList.remove('flash'); }, 1400);
+      });
+    })();
+  </script>
+</body>
+</html>

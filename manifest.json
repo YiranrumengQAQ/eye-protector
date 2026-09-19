@@ -1,0 +1,56 @@
+{
+  "manifest_version": 3,
+  "name": "Eye Protector · 护眼模式",
+  "short_name": "EyeProtector",
+  "version": "1.0.0",
+  "description": "极简护眼模式：一键开启暖色护眼，支持色温、亮度、对比度、饱和度调节，图片保护、网站规则与自动模式。",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "96": "icons/icon-96.png",
+    "128": "icons/icon-128.png"
+  },
+  "action": {
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "96": "icons/icon-96.png"
+    },
+    "default_title": "护眼模式",
+    "default_popup": "popup/popup.html"
+  },
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": true
+  },
+  "background": {
+    "scripts": ["lib/shared.js", "background/background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["lib/shared.js", "content/content.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "permissions": ["storage", "alarms", "tabs"],
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Alt+Shift+E"
+      },
+      "description": "打开护眼模式弹窗"
+    }
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "eye-protector@yiranrumengqaq",
+      "strict_min_version": "121.0",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    }
+  }
+}

@@ -19,39 +19,40 @@
   /* DOM 注入                                                      */
   /* ------------------------------------------------------------ */
 
-  function ensureNode(id, factory) {
+  function ensureNode(id, factory, parent) {
     var el = document.getElementById(id);
     if (!el) {
       el = factory();
-      // document_start 时 <head>/<body> 可能尚不存在，挂到 <html> 上同样生效
-      (document.head || document.documentElement).appendChild(el);
+      parent.appendChild(el);
     }
     return el;
   }
 
   function ensureStyle(id, cssText) {
+    // document_start 时 <head> 可能尚不存在，挂到 <html> 上同样生效
     var el = ensureNode(id, function () {
       var style = document.createElement('style');
       style.id = id;
       return style;
-    });
+    }, document.head || document.documentElement);
     if (el.textContent !== cssText) el.textContent = cssText;
     return el;
   }
 
+  /**
+   * 补偿滤镜的 SVG 节点由 lib/shared.js 用 DOM API 构建；
+   * 参数变化时只更新 feColorMatrix 的 values，不重建节点。
+   * 注意不能放进 <head>（display:none），否则 Firefox 无法解析 url(#…) 引用。
+   */
   function ensureInverseSVG() {
-    return ensureNode(EP.SVG_ID, function () {
-      var wrapper = document.createElement('div');
-      wrapper.id = EP.SVG_ID;
-      wrapper.setAttribute('aria-hidden', 'true');
-      wrapper.innerHTML = EP.buildInverseSVGMarkup(settings);
-      return wrapper;
-    });
-  }
-
-  function refreshInverseSVG() {
-    var el = document.getElementById(EP.SVG_ID);
-    if (el) el.innerHTML = EP.buildInverseSVGMarkup(settings);
+    var wrapper = ensureNode(EP.SVG_ID, function () {
+      var div = document.createElement('div');
+      div.id = EP.SVG_ID;
+      div.setAttribute('aria-hidden', 'true');
+      return div;
+    }, document.body || document.documentElement);
+    EP.renderInverseSVG(wrapper, settings);
+    return wrapper;
   }
 
   function removeAll() {
@@ -88,8 +89,7 @@
     }
 
     if (settings.imageMode === 'protect') {
-      ensureInverseSVG();
-      refreshInverseSVG(); // 参数变化时更新矩阵
+      ensureInverseSVG(); // 首次创建，之后仅更新矩阵
     } else {
       var svg = document.getElementById(EP.SVG_ID);
       if (svg) svg.remove();

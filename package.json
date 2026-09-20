@@ -1,0 +1,16 @@
+{
+  "name": "eye-protector",
+  "version": "1.0.0",
+  "description": "极简护眼模式 Firefox 扩展（Manifest V3）",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "start": "web-ext run",
+    "lint": "web-ext lint",
+    "build": "web-ext build --overwrite-dest --artifacts-dir dist --filename eye-protector-{version}.zip",
+    "prepublish-check": "npm run lint && npm run build"
+  },
+  "devDependencies": {
+    "web-ext": "^10.6.0"
+  }
+}

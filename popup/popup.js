@@ -9,13 +9,11 @@
 
   var EP = globalThis.EyeProtector;
 
-  var ICONS = {
-    sunrise: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v2.5"/><path d="m5.8 5.8 1.6 1.6"/><path d="m18.2 5.8-1.6 1.6"/><path d="M2.5 16h2.5"/><path d="M19 16h2.5"/><path d="M8 16a4 4 0 0 1 8 0"/><path d="M3 20h18"/></svg>',
-    moon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6.4 6.4 0 0 0 8.6 8.6A9 9 0 1 1 12 3Z"/></svg>',
-    book: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 4h6a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3h-7Z"/><path d="M21.5 4h-6a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h7Z"/></svg>',
-    monitor: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3.5" width="19" height="13.5" rx="2"/><path d="M8.5 21h7"/><path d="M12 17v4"/></svg>',
-    custom: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>'
-  };
+  /** 从 popup.html 中的 <template id="icon-…"> 克隆图标节点；未知名称回退为“自定义”。 */
+  function iconNode(name) {
+    var tpl = document.getElementById('icon-' + name) || document.getElementById('icon-custom');
+    return tpl.content.firstElementChild.cloneNode(true);
+  }
 
   var els = {
     orb: document.getElementById('orb'),
@@ -81,7 +79,10 @@
       : null;
     var name = preset ? preset.name : '自定义';
     var icon = preset ? preset.icon : 'custom';
-    els.presetIcon.innerHTML = ICONS[icon] || ICONS.custom;
+    if (els.presetIcon.dataset.icon !== icon) {
+      els.presetIcon.dataset.icon = icon;
+      els.presetIcon.replaceChildren(iconNode(icon));
+    }
     els.presetLine.textContent = name + ' · 暖色 ' + Math.round(settings.warmth) + '%';
 
     els.siteNote.hidden = !excluded;

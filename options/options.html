@@ -390,6 +390,14 @@
     </main>
   </div>
 
+  <!-- 排除列表条目图标：由 options.js 按需克隆，避免在脚本中拼接 SVG 字符串 -->
+  <template id="icon-globe">
+    <svg class="globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19"/><path d="M12 2.5a15.3 15.3 0 0 1 3.8 9.5 15.3 15.3 0 0 1-3.8 9.5 15.3 15.3 0 0 1-3.8-9.5A15.3 15.3 0 0 1 12 2.5Z"/></svg>
+  </template>
+  <template id="icon-close">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+  </template>
+
   <script src="../lib/shared.js"></script>
   <script src="options.js"></script>
 </body>

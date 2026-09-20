@@ -14,6 +14,11 @@
 
   var $ = function (id) { return document.getElementById(id); };
 
+  /** 从 options.html 中的 <template id="icon-…"> 克隆图标节点。 */
+  function iconNode(name) {
+    return $('icon-' + name).content.firstElementChild.cloneNode(true);
+  }
+
   var SLIDER_KEYS = ['warmth', 'brightness', 'contrast', 'saturation'];
   var IMAGE_SLIDER_KEYS = ['imageBrightness', 'imageSaturation'];
 
@@ -122,7 +127,7 @@
       el.setAttribute('aria-hidden', 'true');
       document.body.appendChild(el);
     }
-    el.innerHTML = EP.buildInverseSVGMarkup(s);
+    EP.renderInverseSVG(el, s); // 与 content script 共用同一 DOM 构建逻辑
   }
 
   /* ------------------------------------------------------------ */
@@ -132,19 +137,14 @@
   function renderPresetStatus() {
     var matched = EP.detectPreset(settings);
     var el = $('presetStatus');
+    var b = document.createElement('b');
     if (matched) {
       var p = EP.PRESETS.find(function (x) { return x.id === matched; });
-      el.innerHTML = '';
-      el.append('当前方案：');
-      var b = document.createElement('b');
       b.textContent = p.name;
-      el.append(b);
+      el.replaceChildren('当前方案：', b);
     } else {
-      el.innerHTML = '';
-      el.append('当前方案：');
-      var b2 = document.createElement('b');
-      b2.textContent = '自定义';
-      el.append(b2, '（在外观页调整参数后自动生成）');
+      b.textContent = '自定义';
+      el.replaceChildren('当前方案：', b, '（在外观页调整参数后自动生成）');
     }
     document.querySelectorAll('.preset-card').forEach(function (card) {
       card.classList.toggle('active', card.dataset.preset === matched);
@@ -210,11 +210,8 @@
 
   function renderSites() {
     var list = $('siteList');
-    list.innerHTML = '';
-    settings.excludedSites.forEach(function (domain) {
+    var items = settings.excludedSites.map(function (domain) {
       var li = document.createElement('li');
-      var globe = document.createElement('span');
-      globe.innerHTML = '<svg class="globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19"/><path d="M12 2.5a15.3 15.3 0 0 1 3.8 9.5 15.3 15.3 0 0 1-3.8 9.5 15.3 15.3 0 0 1-3.8-9.5A15.3 15.3 0 0 1 12 2.5Z"/></svg>';
       var span = document.createElement('span');
       span.className = 'domain';
       span.textContent = domain;
@@ -222,11 +219,12 @@
       btn.type = 'button';
       btn.title = '移除';
       btn.setAttribute('aria-label', '移除 ' + domain);
-      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>';
+      btn.appendChild(iconNode('close'));
       btn.addEventListener('click', function () { removeSite(domain); });
-      li.append(globe, span, btn);
-      list.appendChild(li);
+      li.append(iconNode('globe'), span, btn);
+      return li;
     });
+    list.replaceChildren.apply(list, items);
     $('siteEmpty').hidden = settings.excludedSites.length > 0;
   }
 

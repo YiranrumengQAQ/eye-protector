@@ -55,8 +55,18 @@ img, video, canvas …  { filter: url(#inverse) contrast(1/c) brightness(1/b); }
 ├── popup/                 # 极简弹窗：状态 / 一键开关 / 设置入口
 ├── options/               # 设置页：侧边导航 + 卡片布局 + 实时预览
 ├── docs/                  # 界面预览页与 WebExtension API 桩（不属于扩展本体）
-└── icons/                 # SVG 源图标与导出的 PNG
+├── icons/                 # SVG 源图标与导出的 PNG
+├── dist/                  # `npm run build` 生成的可上传 zip
+└── web-ext-config.cjs     # web-ext 配置：声明哪些文件不打进扩展包
 ```
+
+界面代码全部使用 DOM API（`createElement` / `createElementNS` / `<template>` 克隆）构建节点，
+不对 `innerHTML` 做动态赋值，以通过 AMO 审核的安全检查。
+
+## 环境要求
+
+- Firefox 140+（桌面）/ Firefox for Android 142+
+  ——`manifest.json` 中声明的 `data_collection_permissions`（本扩展不收集任何数据）自这两个版本起被支持。
 
 ## 本地调试
 
@@ -67,8 +77,33 @@ img, video, canvas …  { filter: url(#inverse) contrast(1/c) brightness(1/b); }
 也可以使用 [web-ext](https://github.com/mozilla/web-ext)：
 
 ```bash
-npx web-ext run
+npm install
+npm start        # 等价于 web-ext run，在临时配置的 Firefox 中加载扩展
 ```
+
+## 打包与上传 AMO
+
+```bash
+npm install
+npm run lint     # 与 AMO 相同的校验器（addons-linter），应为 0 errors / 0 warnings
+npm run build    # 生成 dist/eye-protector-<version>.zip
+```
+
+`npm run build` 调用 `web-ext build`，按 `web-ext-config.cjs` 中的规则只把扩展本体
+（`manifest.json`、`lib/`、`background/`、`content/`、`popup/`、`options/`、`icons/`）打进 zip，
+并保证 `manifest.json` 位于压缩包根目录。把生成的 zip 上传到
+[AMO 开发者中心](https://addons.mozilla.org/developers/) 即可。
+
+> **不要直接压缩仓库目录上传。** 右键“压缩文件夹”或 GitHub 的 Download ZIP
+> 会把所有文件套在 `eye-protector-1.0.0/` 这一层目录下，AMO 会报
+> `manifest.json was not found`；同时 `docs/`、`README.md` 等非扩展文件也会被一并
+> 打包，触发额外警告。
+>
+> 如果没有 Node 环境，可在仓库根目录手动执行（同样只打包扩展本体、不带外层目录）：
+>
+> ```bash
+> zip -r dist/eye-protector-1.0.0.zip manifest.json lib background content popup options icons
+> ```
 
 ### 不安装扩展预览界面
 

@@ -3,7 +3,7 @@ module.exports = {
   sourceDir: '.',
   ignoreFiles: [
     'docs/**',
-    'web-ext-config.js',
+    'web-ext-config.cjs',
     'README.md',
     'LICENSE',
     '.gitignore'

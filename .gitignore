@@ -3,6 +3,10 @@ node_modules/
 web-ext-artifacts/
 *.zip
 
+# 发布到库中的编译产物（dist/ 例外）
+!dist/*.zip
+!dist/*.xpi
+
 # 系统文件
 .DS_Store
 Thumbs.db
